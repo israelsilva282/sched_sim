@@ -1,25 +1,24 @@
 #include <stdio.h>
-
 #include "queue.h"
 #include "proc.h"
 #include "stats.h"
 
-// Utilizando as variáveis globais definidas no 'main'
-extern struct queue * ready;    // fila de aptos
-extern struct queue * ready2;   // segunda fila de aptos
+extern struct queue *ready;
+extern struct queue *ready2;
 
-// para tratar o que fazer com o processo ao ocorrer a 
-// interrupçao que define sua saída da fila de bloqueados
-void proc_interrupt(struct proc * p)
+void proc_interrupt(struct proc *p)
 {
-    // insere o processo no final da fila de aptos
-    enqueue(ready, p);
+    // Verifica a fila original do processo para retorná-lo à mesma fila de início
+    if (p->queue == 0)
+    {
+        enqueue(ready, p);
+        count_ready_in(p);
+    }
+    else if (p->queue == 1)
+    {
+        enqueue(ready2, p);
+        count_ready_in(p);
+    }
 
-    // alterando o status para apto
     p->state = READY;
-
-    // Realizando as estatisticas para o processo que 
-    // entra na fila de aptos
-    count_ready_in(p);
 }
-
