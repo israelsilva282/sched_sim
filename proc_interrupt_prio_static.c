@@ -12,13 +12,16 @@ void proc_interrupt(struct proc *p)
     if (p->queue == 0)
     {
         enqueue(ready, p);
-        count_ready_in(p);
     }
     else if (p->queue == 1)
     {
         enqueue(ready2, p);
-        count_ready_in(p);
+    }
+    else
+    {
+        enqueue(ready, p);
     }
 
     p->state = READY;
+    count_ready_in(p);
 }

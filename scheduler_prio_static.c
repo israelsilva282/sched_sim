@@ -18,7 +18,7 @@ struct proc *get_higher_priority_queue(struct queue *ready, struct queue *ready2
     struct proc *selected_proc;
     int prioriry = rand() % 100;
 
-    if (prioriry < 80 && !isempty(ready))
+    if (prioriry <= 80 && !isempty(ready))
     {
         selected_proc = dequeue(ready);
     }
