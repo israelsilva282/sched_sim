@@ -24,13 +24,13 @@ void proc_init()
         {
             p->queue = 0; // Fila de prioridade 1
             enqueue(ready, p);
-            count_ready_in(p);
         }
         else
         {
             p->queue = 1; // Fila de prioridade 2
             enqueue(ready2, p);
-            count_ready_in(p);
         }
+
+        count_ready_in(p);
     }
 }
